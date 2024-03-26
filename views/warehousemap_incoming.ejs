@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head'); -%>
+    <!-- <style>
+        /* .cv-tbl tr,td,th{
+            border: 1px solid;
+            width: 200%;
+        } */
+
+        .cv-tbl td{
+            border: 1px solid;
+            /* width: 100%; */
+        }
+        
+        .center {
+          text-align: center;
+        }
+        
+        
+        .table-responsive {
+            overflow-x: scroll;
+            /* max-width: 100%; */
+        }
+        
+        .vertical-text {
+            writing-mode: vertical-lr;
+            text-orientation: sideways;
+        }
+    </style> -->
+
+    
+
+
+    <style>
+   
+      .cv-tbl td{
+            border: 1px solid;
+            /* width: 100%; */
+        }
+        
+        .center {
+          text-align: center;
+        }
+        
+        
+        .table-responsive {
+            overflow-x: scroll;
+            /* max-width: 100%; */
+        }
+
+      table, th, td {
+          border: 1px solid black;
+      }
+
+
+
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 9999999999999; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+      
+        
+      }
+      
+      /* Modal Content */
+      .modal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 25%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s
+      }
+      
+      /* Add Animation */
+      @-webkit-keyframes animatetop {
+        from {top:-300px; opacity:0} 
+        to {top:0; opacity:1}
+      }
+      
+      @keyframes animatetop {
+        from {top:-300px; opacity:0}
+        to {top:0; opacity:1}
+      }
+      
+      /* The Close Button */
+      .close {
+        color: white;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      
+      .modal-header {
+        padding: 2px 16px;
+        background-color: rgba(34, 34, 51, 0.705);
+        color: white;
+      }
+      
+      .modal-body {padding: 2px 16px;}
+      
+      .modal-footer {
+        padding: 2px 16px;
+        background-color: rgba(34, 34, 51, 0.705);
+        color: white;
+        display: flex;
+        justify-content: center;
+        display: grid;
+          place-items: center;
+      }
+
+
+      .emailcontainer {
+          display: none;
+          position: absolute;
+          /* top: 40px;
+          left: 20px; */
+          background-color: rgb(255, 255, 255);
+          color:#000000;
+          border:solid 1px #000000;
+          padding:10px;
+          /* padding-left:50px; */
+          /* padding-right:200px; */
+          overflow-x: auto; 
+          z-index: 9999999999999;
+      }
+      table td {
+          word-wrap: break-word;
+          white-space: nowrap;
+          /* overflow: hidden; */
+          text-overflow: ellipsis;
+      }
+
+      /* .button-text { */
+          /* padding:0 25px; */
+          /* line-height:56px; */
+          /* letter-spacing:3px */
+      /* } */
+      .button-text.contactme {
+          position: relative;
+          /* font-weight:50px; */
+    }
+
+    th {
+      height: 70px;
+      width: 70px;
+      text-align: center; /* Center horizontally */
+      vertical-align: middle; /* Center vertically */
+    }
+
+    td {
+      height: 100px;
+      width: 70px;
+      text-align: center; /* Center horizontally */
+      vertical-align: middle; /* Center vertically */
+    }
+
+    .minimal {
+      height: 10px;
+      width: 70px;
+      text-align: center; /* Center horizontally */
+      vertical-align: middle; /* Center vertically */
+    }
+
+  </style>
+</head>
+
+<body>
+    <!--*******************
+    Preloader start
+********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+    Preloader end
+********************-->
+
+    <!--**********************************
+    Main wrapper start
+***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+        Nav header start
+    ***********************************-->
+        <%- include('./partials/header_logo'); -%>
+
+            <!--**********************************
+        Nav header end
+    ***********************************-->
+
+            <!--**********************************
+        Header start
+    ***********************************-->
+            <%- include('./partials/header',{titel: language.WareHouse_Map}); -%>
+
+                <!--**********************************
+        Header end ti-comment-alt
+    ***********************************-->
+
+                <!--**********************************
+        Sidebar start
+    ***********************************-->
+                <%- include('./partials/sidebar'); -%>
+
+                    <!--**********************************
+        Sidebar end
+    ***********************************-->
+
+                    <div class="content-body">
+                        <div class="card">
+                            <div class="container-fluid">
+                                <div class="card-header">
+                                            <h4 class="card-title">Warehouse Map</h4>
+                                             
+                                         
+                                </div>
+                                
+                            <div class="card-header" style="display: flex; flex-direction: column; align-items: center;">
+                              <div class="container">
+                                <div class="row">
+                                  <div class="mb-3 col-md-4">
+                                      <label for="warrehouse">Warehouse <span class="text-red">*</span> </label>
+                                      <select class="form-control" name="warehouse" id="warehouse" required>
+                                         
+                                          <% warehouse.forEach((data)=> { %>
+                                          <option value="<%= data.name %>"><%= data.name %></option>
+                                          <% }) %>
+                                      </select>
+                                  </div>
+                                  <div class="mb-3 col-md-4">
+                                      <label for="warrehouse">Room <span class="text-red">*</span> </label>
+                                      <select class="form-control" name="room" id="room" required>
+                                          <option value="Rack 1" >Rack 1</option>
+                                          <option value="Rack 2" >Rack 2</option>
+                                          <option value="Parts" >Parts</option>
+                                      </select>
+                                  </div>
+                                  <div class="mb-3 col-md-4">
+                                      <label for="warrehouse">Level <span class="text-red">*</span> </label>
+                                      <select class="form-control" name="level" id="level" required>
+                                      
+                                          <option value="1" >One</option>
+                                          <option value="2" >Two</option>
+                                          <option value="3" >Three</option>
+                                    
+                                      </select>
+                                  </div>
+                              </div> 
+                              </div>
+                                
+                                
+                                <div class="row">
+                                    <button type="submit" class="btn btn-primary w-100" id="filterButton">Generate</button>
+                                </div> 
+                            </div>
+                            
+                           <!--<div class="container-fluid"> -->
+                           <!--     <table id="dataTable" border="1" style="border-collapse: collapse;" class="cv-tbl table-responsive">-->
+                           <!--         <tbody>-->
+                                        
+                           <!--         </tbody>-->
+                           <!--     </table>-->
+                           <!-- </div>-->
+                           
+                           <div class="container-fluid">
+                            <div class="table-responsive">
+                                <table id="dataTable" class="cv-tbl">
+                                    <tbody>
+                                   
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                           </div>
+                       </div>
+                    </div>
+
+
+                    <div id="myModal" class="modal">
+                      <div class="modal-content">
+                        <!-- Content goes here -->
+                        <span class="close">&times;</span>
+                      </div>
+                    </div>
+                    
+
+                    <!--**********************************
+            Footer start
+        ***********************************-->
+                    <%- include('./partials/footer'); -%>
+
+                        <!--**********************************
+            Footer end
+        ***********************************-->
+
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!-- start Toastr -->
+    <%- include('./partials/toastr'); -%>
+    <!-- End Toastr -->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+   
+    <%- include('./partials/script'); -%>
+    <script>
+
+
+      function dataval_status(status){
+          var statusData = '';
+          switch (status) {
+              case "S":
+                  statusData = "SOLD";
+              break;
+
+              case "O":
+                  statusData = "OPERATIONAL";
+              break;
+
+              case "NO":
+                  statusData = "NON-OPERATIONAL";
+              break;
+
+              case "UI":
+                  statusData = "UNDER INSPECTION";
+              break;
+          
+              default:
+              break;
+          }
+
+          return statusData;
+      }
+
+
+      function jsonToArray(jsonData) {
+        var data = {};
+
+        jsonData.forEach((item) => {
+          // console.log("asdad", item)
+          var rack = item.rack;
+          var count = dataval_status(item.status);
+          var image = item.image;
+          if (!data[rack]) {
+            data[rack] = {
+              palletCount: count,
+              images: image,
+              productData: []
+            };
+          }
+
+          
+
+          item.products.forEach((product) => {
+            data[rack].productData.push({
+              product_name: product.product_name,
+              product_quantity: dataval_status(product.status),
+              product_code: product.product_code,
+            });
+          });
+        });
+
+        return data;
+      }
+
+      var modal = $('#myModal');
+      function showModal(i, ltter) {
+
+        
+        var Qty = document.getElementById("product_quantity"+i+ltter);
+        
+        var Code = document.getElementById("product_code"+i+ltter);
+        var name = document.getElementById("product_name"+i+ltter);
+        var images = document.getElementById("images"+i+ltter);
+        console.log(name.value)
+        modal.show();
+        modal.find('.modal-content').html('<div class="card" style="width: 20rem; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin: auto;"><img class="card-img-top" src="/upload/'+images.value+'" alt="Card image cap"><div class="card-body"><p class="card-text">Name: ' + name.value + '</p><p class="card-text">Product Code: ' + Code.value + '</p><p class="card-text">Status: ' + Qty.value + '</p></div></div>');
+      }
+
+
+      $(document).on('click', function (event) {
+        if ($(event.target).is(modal)) {
+          modal.hide();
+        }
+      });
+
+      // Close the modal when clicking outside of it
+      
+      $(document).ready(function() {
+  // Initialize the DataTable
+  dataBody = $('#dataTable tbody');
+
+  // Event handler for the filter button click
+  $('#filterButton').click(function() {
+    var warehouse_value = $('#warehouse').val();
+    var level_value = parseInt($('#level').val());
+    var room_value = $('#room').val();
+    var isle_value = $('#isle').val();
+    
+
+    // Make an AJAX request to the server
+    $.ajax({
+      url: '/warehousemap_Income/MapData',
+      type: 'POST',
+      data: { warehouseNew: warehouse_value, level: level_value, rooms: room_value },
+      success: function(response) {
+        // Clear the existing table data
+        dataBody.empty();
+        
+        const DataRes = jsonToArray(response);
+        
+        let dataIsle 
+        let dataIsleHalf
+        dataIsle = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+        switch(warehouse_value) {
+            case "Main":
+                if(room_value == "Rack 1"){
+                    if(level_value == "1"){
+                        
+                        let j = 1;
+                        let k = 54;
+                        var datahoverItem = [];
+                        //var dataItems = '';
+                        var dataItems = '';
+                          dataItems += '<tr style="border-bottom:1pt solid black;">';
+                        dataIsle.forEach(function(isleItem){
+                          
+                          dataItems += '<th><h1>'+isleItem +'</h1></th>';
+
+                          
+                        })
+                        dataItems += '</tr>';
+                        
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+
+                          
+                          if(DataRes[dataIsle[i]]){
+                            // console.log( "bilang: <> " + i,DataRes[dataIsle[i]].productData.length)
+                            var countQTY = DataRes[dataIsle[i]].palletCount.length;
+                            var productDataView = DataRes[dataIsle[i]].productData;
+                            var countProducts = DataRes[dataIsle[i]].productData.length;
+                            // dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countQTY;
+                              dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countProducts;
+                              productDataView.forEach(function(dataval){
+                                dataItems += '<input type="hidden" id="product_code'+i+dataIsle[i]+'" value="'+dataval.product_code+'" />';
+                                dataItems += '<input type="hidden" id="product_quantity'+i+dataIsle[i]+'" value="'+dataval.product_quantity+'" />';
+                                dataItems += '<input type="hidden" id="product_name'+i+dataIsle[i]+'" value="'+dataval.product_name+'" />';
+                              })
+
+                              dataItems += '<input type="hidden" id="images'+i+dataIsle[i]+'" value="'+DataRes[dataIsle[i]].images+'" />';
+                            
+                            dataItems += '</td>';
+                          }else{
+                            dataItems += '<td>'+0+'</td>';
+                          }
+
+                          
+                        }
+                        dataItems += '</tr>';
+
+
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+                          dataItems += '<td class="minimal"></td>';
+                        }
+                        dataItems += '</tr>';
+                        dataBody.append(dataItems);
+
+                    }else if(level_value == "2"){
+                        
+                        let j = 1;
+                        let k = 54;
+                        var datahoverItem = [];
+                        //var dataItems = '';
+                        var dataItems = '';
+                          dataItems += '<tr style="border-bottom:1pt solid black;">';
+                        dataIsle.forEach(function(isleItem){
+                          
+                          dataItems += '<th><h1>'+isleItem +'</h1></th>';
+
+                          
+                        })
+                        dataItems += '</tr>';
+                        
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+
+                          
+                          if(DataRes[dataIsle[i]]){
+                            console.log(DataRes)
+                            var countQTY = DataRes[dataIsle[i]].palletCount;
+                            var productDataView = DataRes[dataIsle[i]].productData;
+                            var countProducts = response[i].products.length;
+                            // dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countQTY;
+                              dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countProducts;
+                              productDataView.forEach(function(dataval){
+                                dataItems += '<input type="hidden" id="product_code'+i+dataIsle[i]+'" value="'+dataval.product_code+'" />';
+                                dataItems += '<input type="hidden" id="product_quantity'+i+dataIsle[i]+'" value="'+dataval.product_quantity+'" />';
+                                dataItems += '<input type="hidden" id="product_name'+i+dataIsle[i]+'" value="'+dataval.product_name+'" />';
+                              })
+                            
+                            dataItems += '</td>';
+                            //console.log(DataRes[dataIsle[i]].palletCount)
+                          }else{
+                            dataItems += '<td>'+0+'</td>';
+                          }
+
+                          
+                        }
+                        dataItems += '</tr>';
+
+
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+                          dataItems += '<td class="minimal"></td>';
+                        }
+                        dataItems += '</tr>';
+
+                        //dataIsle.length
+                        dataBody.append(dataItems);
+
+
+            
+                    }else if(level_value == "3"){
+                        
+                        let j = 1;
+                        let k = 54;
+                        var datahoverItem = [];
+                        //var dataItems = '';
+                        var dataItems = '';
+                          dataItems += '<tr style="border-bottom:1pt solid black;">';
+                        dataIsle.forEach(function(isleItem){
+                          
+                          dataItems += '<th><h1>'+isleItem +'</h1></th>';
+
+                          
+                        })
+                        dataItems += '</tr>';
+                        
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+
+                          
+                          if(DataRes[dataIsle[i]]){
+                            console.log(DataRes)
+                            var countQTY = DataRes[dataIsle[i]].palletCount;
+                            var productDataView = DataRes[dataIsle[i]].productData;
+                            var countProducts = response[i].products.length;
+                            // dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countQTY;
+                              dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countProducts;
+                              productDataView.forEach(function(dataval){
+                                dataItems += '<input type="hidden" id="product_code'+i+dataIsle[i]+'" value="'+dataval.product_code+'" />';
+                                dataItems += '<input type="hidden" id="product_quantity'+i+dataIsle[i]+'" value="'+dataval.product_quantity+'" />';
+                                dataItems += '<input type="hidden" id="product_name'+i+dataIsle[i]+'" value="'+dataval.product_name+'" />';
+                              })
+                            
+                            dataItems += '</td>';
+                            //console.log(DataRes[dataIsle[i]].palletCount)
+                          }else{
+                            dataItems += '<td>'+0+'</td>';
+                          }
+
+                          
+                        }
+                        dataItems += '</tr>';
+
+
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+                          dataItems += '<td class="minimal"></td>';
+                        }
+                        dataItems += '</tr>';
+
+                        //dataIsle.length
+                        dataBody.append(dataItems);
+
+
+            
+                    }
+                }else if(room_value == "Rack 2"){
+                  if(level_value == "1"){
+                        
+                        let j = 1;
+                        let k = 54;
+                        var datahoverItem = [];
+                        //var dataItems = '';
+                        var dataItems = '';
+                          dataItems += '<tr style="border-bottom:1pt solid black;">';
+                        dataIsle.forEach(function(isleItem){
+                          
+                          dataItems += '<th><h1>'+isleItem +'</h1></th>';
+
+                          
+                        })
+                        dataItems += '</tr>';
+                        
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+
+                          
+                          if(DataRes[dataIsle[i]]){
+                            console.log(DataRes)
+                            var countQTY = DataRes[dataIsle[i]].palletCount;
+                            var productDataView = DataRes[dataIsle[i]].productData;
+                            var countProducts = response[i].products.length;
+                            // dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countQTY;
+                              dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countProducts;
+                              productDataView.forEach(function(dataval){
+                                dataItems += '<input type="hidden" id="product_code'+i+dataIsle[i]+'" value="'+dataval.product_code+'" />';
+                                dataItems += '<input type="hidden" id="product_quantity'+i+dataIsle[i]+'" value="'+dataval.product_quantity+'" />';
+                                dataItems += '<input type="hidden" id="product_name'+i+dataIsle[i]+'" value="'+dataval.product_name+'" />';
+                              })
+                            
+                            dataItems += '</td>';
+                            //console.log(DataRes[dataIsle[i]].palletCount)
+                          }else{
+                            dataItems += '<td>'+0+'</td>';
+                          }
+
+                          
+                        }
+                        dataItems += '</tr>';
+
+
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+                          dataItems += '<td class="minimal"></td>';
+                        }
+                        dataItems += '</tr>';
+
+                        //dataIsle.length
+                        dataBody.append(dataItems);
+
+    
+                    }else if(level_value == "2"){
+                        
+                        let j = 1;
+                        let k = 54;
+                        var datahoverItem = [];
+                        //var dataItems = '';
+                        var dataItems = '';
+                          dataItems += '<tr style="border-bottom:1pt solid black;">';
+                        dataIsle.forEach(function(isleItem){
+                          
+                          dataItems += '<th><h1>'+isleItem +'</h1></th>';
+
+                          
+                        })
+                        dataItems += '</tr>';
+                        
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+
+                          
+                          if(DataRes[dataIsle[i]]){
+                            console.log(DataRes)
+                            var countQTY = DataRes[dataIsle[i]].palletCount;
+                            var productDataView = DataRes[dataIsle[i]].productData;
+                            var countProducts = response[i].products.length;
+                            // dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countQTY;
+                              dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countProducts;
+                              productDataView.forEach(function(dataval){
+                                dataItems += '<input type="hidden" id="product_code'+i+dataIsle[i]+'" value="'+dataval.product_code+'" />';
+                                dataItems += '<input type="hidden" id="product_quantity'+i+dataIsle[i]+'" value="'+dataval.product_quantity+'" />';
+                                dataItems += '<input type="hidden" id="product_name'+i+dataIsle[i]+'" value="'+dataval.product_name+'" />';
+                              })
+                            
+                            dataItems += '</td>';
+                            //console.log(DataRes[dataIsle[i]].palletCount)
+                          }else{
+                            dataItems += '<td>'+0+'</td>';
+                          }
+
+                          
+                        }
+                        dataItems += '</tr>';
+
+
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+                          dataItems += '<td class="minimal"></td>';
+                        }
+                        dataItems += '</tr>';
+
+                        //dataIsle.length
+                        dataBody.append(dataItems);
+
+    
+                    }else if(level_value == "3"){
+                        
+                        let j = 1;
+                        let k = 54;
+                        var datahoverItem = [];
+                        //var dataItems = '';
+                        var dataItems = '';
+                          dataItems += '<tr style="border-bottom:1pt solid black;">';
+                        dataIsle.forEach(function(isleItem){
+                          
+                          dataItems += '<th><h1>'+isleItem +'</h1></th>';
+
+                          
+                        })
+                        dataItems += '</tr>';
+                        
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+
+                          
+                          if(DataRes[dataIsle[i]]){
+                            console.log(DataRes)
+                            var countQTY = DataRes[dataIsle[i]].palletCount;
+                            var productDataView = DataRes[dataIsle[i]].productData;
+                            var countProducts = response[i].products.length;
+                            // dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countQTY;
+                              dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countProducts;
+                              productDataView.forEach(function(dataval){
+                                dataItems += '<input type="hidden" id="product_code'+i+dataIsle[i]+'" value="'+dataval.product_code+'" />';
+                                dataItems += '<input type="hidden" id="product_quantity'+i+dataIsle[i]+'" value="'+dataval.product_quantity+'" />';
+                                dataItems += '<input type="hidden" id="product_name'+i+dataIsle[i]+'" value="'+dataval.product_name+'" />';
+                              })
+                            
+                            dataItems += '</td>';
+                            //console.log(DataRes[dataIsle[i]].palletCount)
+                          }else{
+                            dataItems += '<td>'+0+'</td>';
+                          }
+
+                          
+                        }
+                        dataItems += '</tr>';
+
+
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+                          dataItems += '<td class="minimal"></td>';
+                        }
+                        dataItems += '</tr>';
+
+                        //dataIsle.length
+                        dataBody.append(dataItems);
+
+    
+                    }
+                }else if(room_value == "Parts"){
+
+                  if(level_value == "1"){
+                        
+                        let j = 1;
+                        let k = 54;
+                        var datahoverItem = [];
+                        //var dataItems = '';
+                        var dataItems = '';
+                          dataItems += '<tr style="border-bottom:1pt solid black;">';
+                        dataIsle.forEach(function(isleItem){
+                          
+                          dataItems += '<th><h1>'+isleItem +'</h1></th>';
+
+                          
+                        })
+                        dataItems += '</tr>';
+                        
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+
+                          
+                          if(DataRes[dataIsle[i]]){
+                            console.log(DataRes)
+                            var countQTY = DataRes[dataIsle[i]].palletCount;
+                            var productDataView = DataRes[dataIsle[i]].productData;
+                            var countProducts = response[i].products.length;
+                            // dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countQTY;
+                              dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countProducts;
+                              productDataView.forEach(function(dataval){
+                                dataItems += '<input type="hidden" id="product_code'+i+dataIsle[i]+'" value="'+dataval.product_code+'" />';
+                                dataItems += '<input type="hidden" id="product_quantity'+i+dataIsle[i]+'" value="'+dataval.product_quantity+'" />';
+                                dataItems += '<input type="hidden" id="product_name'+i+dataIsle[i]+'" value="'+dataval.product_name+'" />';
+                              })
+                            
+                            dataItems += '</td>';
+                            //console.log(DataRes[dataIsle[i]].palletCount)
+                          }else{
+                            dataItems += '<td>'+0+'</td>';
+                          }
+
+                          
+                        }
+                        dataItems += '</tr>';
+
+
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+                          dataItems += '<td class="minimal"></td>';
+                        }
+                        dataItems += '</tr>';
+
+                        //dataIsle.length
+                        dataBody.append(dataItems);
+
+    
+                    }else if(level_value == "2"){
+                        
+                        let j = 1;
+                        let k = 54;
+                        var datahoverItem = [];
+                        //var dataItems = '';
+                        var dataItems = '';
+                          dataItems += '<tr style="border-bottom:1pt solid black;">';
+                        dataIsle.forEach(function(isleItem){
+                          
+                          dataItems += '<th><h1>'+isleItem +'</h1></th>';
+
+                          
+                        })
+                        dataItems += '</tr>';
+                        
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+
+                          
+                          if(DataRes[dataIsle[i]]){
+                            console.log(DataRes)
+                            var countQTY = DataRes[dataIsle[i]].palletCount;
+                            var productDataView = DataRes[dataIsle[i]].productData;
+                            var countProducts = response[i].products.length;
+                            // dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countQTY;
+                              dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countProducts;
+                              productDataView.forEach(function(dataval){
+                                dataItems += '<input type="hidden" id="product_code'+i+dataIsle[i]+'" value="'+dataval.product_code+'" />';
+                                dataItems += '<input type="hidden" id="product_quantity'+i+dataIsle[i]+'" value="'+dataval.product_quantity+'" />';
+                                dataItems += '<input type="hidden" id="product_name'+i+dataIsle[i]+'" value="'+dataval.product_name+'" />';
+                              })
+                            
+                            dataItems += '</td>';
+                            //console.log(DataRes[dataIsle[i]].palletCount)
+                          }else{
+                            dataItems += '<td>'+0+'</td>';
+                          }
+
+                          
+                        }
+                        dataItems += '</tr>';
+
+
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+                          dataItems += '<td class="minimal"></td>';
+                        }
+                        dataItems += '</tr>';
+
+                        //dataIsle.length
+                        dataBody.append(dataItems);
+
+    
+                    }else if(level_value == "3"){
+                        
+                        let j = 1;
+                        let k = 54;
+                        var datahoverItem = [];
+                        //var dataItems = '';
+                        var dataItems = '';
+                          dataItems += '<tr style="border-bottom:1pt solid black;">';
+                        dataIsle.forEach(function(isleItem){
+                          
+                          dataItems += '<th><h1>'+isleItem +'</h1></th>';
+
+                          
+                        })
+                        dataItems += '</tr>';
+                        
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+
+                          
+                          if(DataRes[dataIsle[i]]){
+                            console.log(DataRes)
+                            var countQTY = DataRes[dataIsle[i]].palletCount;
+                            var productDataView = DataRes[dataIsle[i]].productData;
+                            var countProducts = response[i].products.length;
+                            // dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countQTY;
+                              dataItems += '<td onclick="showModal('+i+', \''+dataIsle[i]+'\')">'+countProducts;
+                              productDataView.forEach(function(dataval){
+                                dataItems += '<input type="hidden" id="product_code'+i+dataIsle[i]+'" value="'+dataval.product_code+'" />';
+                                dataItems += '<input type="hidden" id="product_quantity'+i+dataIsle[i]+'" value="'+dataval.product_quantity+'" />';
+                                dataItems += '<input type="hidden" id="product_name'+i+dataIsle[i]+'" value="'+dataval.product_name+'" />';
+                              })
+                            
+                            dataItems += '</td>';
+                            //console.log(DataRes[dataIsle[i]].palletCount)
+                          }else{
+                            dataItems += '<td>'+0+'</td>';
+                          }
+
+                          
+                        }
+                        dataItems += '</tr>';
+
+
+                        dataItems += '<tr>';
+                        for(var i = 0; i < dataIsle.length; i++){
+                          dataItems += '<td class="minimal"></td>';
+                        }
+                        dataItems += '</tr>';
+
+                        //dataIsle.length
+                        dataBody.append(dataItems);
+
+    
+                    }
+
+                }
+            break
+            
+          }
+        
+        
+        
+      },
+      error: function(error) {
+        console.log('Error:', error);
+      }
+    });
+  });
+});
+
+
+
+      
+    </script>
+
+        <!--**********************************
+        Scripts end
+    ***********************************-->
+</body>
+
+</html>

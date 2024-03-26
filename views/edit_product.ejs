@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head'); -%>
+      
+</head>
+
+<body onload="ChangedLabel();">
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <%- include('./partials/header_logo'); -%>
+
+            <!--**********************************
+            Nav header end
+        ***********************************-->
+
+            <!--**********************************
+            Header start
+        ***********************************-->
+            <%- include('./partials/header',{titel: language.manage_product}); -%>
+
+                <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+                <!--**********************************
+            Sidebar start
+        ***********************************-->
+                <%- include('./partials/sidebar'); -%>
+
+                    <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+                    <!--**********************************
+            Content body start
+        ***********************************-->
+                    <div class="content-body">
+                        <div class="container-fluid">
+
+                            <!-- row -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title"><%= language.add_products %></h4>
+                                            <button type="button" class="btn btn-rounded btn-outline-info" onclick="history.back()"><i class="la la-undo"></i> <%= language.go_back %></button>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-validation">
+                                                <form class="needs-validation" action="/products/view/<%= alldata._id %>" method="post" enctype="multipart/form-data">
+                                                    <div class="row">
+
+                                                        <!-- left side -->
+
+                                                        <div class="col-xl-4">
+                                                            <div class="center">
+                                                                <div class="form-input">
+                                                                    
+                                                                    <img id="file-preview" class="w-100" src="/upload/<%= alldata.image %>"
+                                                                        alt="image">
+                                                                   
+                                                                    <input class="d-none" type="file" id="file-1" name="image"
+                                                                        onchange="showPreview(event)">
+                
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex align-items-end">
+                                                                <label class="btn btn-primary mt-4 w-100" for="file-1"><%= language.upload_image %></label>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- right side -->
+
+                                                        <div class="col-xl-8">
+                                                            <div class="row">
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label"><%= language.name %> <span class="text-red">*</span></label>
+                                                                    <input type="text" placeholder="Name" class="form-control"
+                                                                        name="name" value="<%= alldata.name %>" required>
+                                                                </div>
+
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label"><%= language.category %> <span class="text-red">*</span></label>
+                                                                    <select class="form-control" name="category" id="category" required>
+                                                                        <option value selected disabled>Select One</option>
+                                                                        <% categories.forEach((categories) => { %>
+                                                                            <option <%= alldata.category ==  categories.name ? "selected" : "" %>>
+                                                                                <%= categories.name %>
+                                                                            </option>
+                                                                        <% }) %>
+                                                                    </select>
+                                                                </div>
+                                                                
+                                                            </div>
+
+
+                                                            <div class="row">
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label"><%= language.brands %> <span class="text-red">*</span></label>
+                                                                    <select class="form-control" name="brand" id="brand" required>
+                                                                        <option value selected disabled>Select One</option>
+                                                                        <% brands.forEach((brands) => { %>
+                                                                            <option <%= alldata.brand ==  brands.name ? "selected" : "" %>>
+                                                                                <%= brands.name %>
+                                                                            </option>
+                                                                        <% }) %>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label">Year Model </label>
+                                                                    <input type="text" placeholder="Year Model" class="form-control"
+                                                                        name="year_model" value="<%= alldata.year_model %>">
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label"><%= language.units %> <span class="text-red">*</span></label>
+                                                                    <select class="form-control" name="unit" id="unit" onchange="ChangedLabel()" required>
+                                                                        <option value selected disabled>Select One</option>
+                                                                        <% units.forEach((units)=> { %>
+
+                                                                            <option <%= alldata.unit == units.name ? "selected" : "" %>>
+                                                                                <%= units.name %>
+                                                                            </option>
+
+                                                                            <% }) %>
+                                                                    </select>
+                                                                </div>
+
+                                                                                                           
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label">Plate Number</label>
+                                                                    <input type="text" placeholder="Plate Number" class="form-control"
+                                                                        name="plate_number" value="<%= alldata.plate_number %>">
+                                                                </div>
+
+                                                              
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="row">
+                                                                
+                                                                
+                                                                
+                                                                <div class="mb-3 col-md-3">
+                                                                    <label class="form-label"><%= language.product_code %> / Item Code</label>
+                                                                    <input type="text" placeholder="Product Code" class="form-control" name="product_code" id="product_code1" value="<%= alldata.product_code %>" required>
+                                                                </div>
+
+                                                                <div class="mb-3 col-md-3">
+                                                                    <label class="form-label">File Number</label>
+                                                                    <input type="text" placeholder="File Number" class="form-control"
+                                                                        name="file_number" value="<%= alldata.file_number %>">
+                                                                </div>
+
+                                                                <div class="mb-3 col-md-3">
+                                                                    <label class="form-label">Chasis Number</label>
+                                                                    <input type="text" placeholder="Chasis Number" class="form-control"
+                                                                        name="chasis_number" value="<%= alldata.chasis_number %>">
+                                                                </div>
+
+                                                                <div class="mb-3 col-md-3">
+                                                                    <label class="form-label">Motor Number</label>
+                                                                    <input type="text" placeholder="Motor Number" class="form-control"
+                                                                        name="Motor_number" value="<%= alldata.motor_number %>">
+                                                                </div>
+
+                                                                
+                                                                
+                                                            </div>
+
+                                                            <div class="row">
+                                                                
+                                                            
+                                                                
+                                                                <div class="mb-3 col-md-3">
+                                                                    <label class="form-label">OR / CR </label>
+                                                                    <input type="text" placeholder="OR / CR" class="form-control" name="ORCR" id="ORCR" value="<%= alldata.ORCR %>">
+                                                                </div>
+
+                                                                <div class="mb-3 col-md-3">
+                                                                    <label class="form-label">Make/series</label>
+                                                                    <input type="text" placeholder="Make/series" class="form-control"
+                                                                        name="make_series" value="<%= alldata.make_series %>">
+                                                                </div>
+
+                                                                <div class="mb-3 col-md-6">
+                                                                    <label class="form-label">Type of Unit</label>
+                                                                    <select class="form-control" name="TOU" id="TOU">
+                                                                        <option value selected disabled>Select One</option>
+                                                                        <option value="C" <%= alldata.typeofunits == "C" ? "selected" : "" %>>Car</option>
+                                                                        <option value="MC" <%= alldata.typeofunits == "MC" ? "selected" : "" %>>Motor Cycle</option>
+                                                                        <option value="P" <%= alldata.typeofunits == "P" ? "selected" : "" %>>Parts</option>
+                                                                    </select>
+                                                                </div>
+
+
+                                                                <div class="mb-3 col-md-3">
+                                                                    <label class="form-label">FRAME NUMBER</label>
+                                                                    <input type="text" placeholder="FRAME NUMBER" class="form-control"
+                                                                        name="frame_number" value="<%= alldata.frame_number %>">
+                                                                </div>
+
+                                                                <div class="mb-3 col-md-3">
+                                                                    <label class="form-label">ENGINE NUMBER <span class="text-red">*</span> </label>
+                                                                    <input type="text" placeholder="ENGINE NUMBER" class="form-control"
+                                                                        name="engine_number" value="<%= alldata.engine_number %>" required>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <hr>
+
+                                                        </div>
+                                                        
+                                                        
+                                                        <div class="text-end">
+                                                            <button class="btn btn-primary mt-4 w-25" type="submit" id="submit"><%= language.submit %></button>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--**********************************
+            Content body end
+        ***********************************-->
+
+                    <!--**********************************
+            Footer start
+        ***********************************-->
+                    <%- include('./partials/footer'); -%>
+
+                        <!--**********************************
+            Footer end
+        ***********************************-->
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    
+        <%- include('./partials/script'); -%>
+        <script>
+            function ChangedLabel(){
+                var Primary = document.getElementById("unit").value;
+                var Secondary = document.getElementById("second_unit").value;
+                document.getElementById("maxPerSecunit").innerHTML = Secondary
+                document.getElementById("maxPerunit").innerHTML = Primary  
+            }
+        </script>
+
+    <!--**********************************
+        Scripts end
+    ***********************************-->
+</body>
+
+</html>

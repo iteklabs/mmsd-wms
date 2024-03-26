@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head'); -%>
+    <style>
+         .color-legend {
+            display: flex;
+            align-items: center;
+        }
+
+        .color-box {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    </style>
+
+    <script>
+
+        function test(){
+            document.getElementById("form").submit();
+        }
+        
+    </script>
+</head>
+
+<body onload="ComputeConversion(); checkedServices(); showTextbox(); SelectRoom('<%= user.room %>');">
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <%- include('./partials/header_logo'); -%>
+
+            <!--**********************************
+            Nav header end
+        ***********************************-->
+
+            <!--**********************************
+            Header start
+        ***********************************-->
+            <%- include('./partials/header',{titel: "Outggoing for Finished Goods"}); -%>
+
+                <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+                <!--**********************************
+            Sidebar start
+        ***********************************-->
+                <%- include('./partials/sidebar'); -%>
+
+                    <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+                    <!--**********************************
+            Content body start
+        ***********************************-->
+                    <div class="content-body">
+                        <div class="container-fluid">
+
+                            <!-- row -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title"><%= language.edit_sale_details %> </h4>
+                                            <button type="button" class="btn btn-rounded btn-outline-info"
+                                                onclick="history.back()"><i class="la la-undo"></i> <%= language.go_back %> </button>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-validation">
+
+                                                <form class="needs-validation" action="/all_sales_finished/view/<%= user._id %>"
+                                                    method="POST" id="form">
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-xl-3 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label for="invoice_no">Document Number </label>
+                                                                <input type="text" name="invoice" class="form-control"
+                                                                    id="invoice" value="<%= user.invoice %>" readonly>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-xl-4 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label for="invoice_no"> Supplier / Client Ref Number <span class="text-red">*</span></label>
+                                                                <input type="text" name="SCRN" class="form-control"
+                                                                    id="SCRN" value="<%= user.SCRN  %>">
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-xl-3 col-sm-6">
+                                                  
+                                                            <label class="form-label">Requested By</label>
+                                                            <input type="text" class="form-control" name="ReqBy" id="ReqBy" value="<%= user.RequestedBy %>">
+                                         
+                                                    </div>
+
+
+                                                    <div class="col-xl-3 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Date of Request</label>
+                                                            <input type="date" class="form-control" name="dateofreq" id="dateofreq" value="<%= user.DateofRequest %>">
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-xl-3 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">PO number</label>
+                                                            <input type="text" class="form-control" name="PO_number" value="<%= user.PO_number %>">
+                                                        </div>
+                                                    </div>
+
+                                                        <div class="col-xl-3 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label for="invoice_no"><%= language.customer %> </label>
+                                                                <select class="form-control" name="customer"
+                                                                    id="customer" required>
+                                                                    <option value selected disabled>Select One</option>
+                                                                    <% customer.forEach((customer)=> { %>
+                                                                        <option <%=user.customer==customer.name
+                                                                            ? "selected" : "" %>>
+                                                                            <%= customer.name %>
+                                                                        </option>
+                                                                        <% }) %>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-4 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label for="invoice_no"><%= language.date %> </label>
+                                                                <input type="date" name="date" class="form-control"
+                                                                    id="date" value="<%= user.date %>" required>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-xl-3 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label for="invoice_no"><%= language.warehouse %> </label>
+                                                                <select class="form-control" name="warehouse_name"
+                                                                    id="warehouse_name" onchange="SelectRoom('<%= user.room %>');" required>
+                                                                    <option value selected disabled>Select One</option>
+                                                                    <% warehouse.forEach((warehouse)=> { %>
+                                                                        <option <%=user.warehouse_name==warehouse.name
+                                                                            ? "selected" : "" %>>
+                                                                            <%= warehouse.name %>
+                                                                        </option>
+                                                                        <% }) %>
+                                                                </select>
+                                                            </div>
+                                                         
+                                                        </div>
+
+
+                                                        <div class="col-xl-3 col-sm-6">  
+                                                            <div class="form-group">
+                                                                <label for="invoice_no">Room <span class="text-red">*</span></label>
+                                                                <!-- <select class="form-control" name="room" id="room"
+                                                                     onchange="showTextbox();" required>
+                        
+                                                                </select> -->
+
+                                                                <div id="showRoom">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        
+                                                    </div>
+                                                
+
+                                                    <div class="row mb-3">
+
+                                                        <div class="col-xl-3 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label for="invoice_no">Type of Services  <span
+                                                                        class="text-red">*</span></label>
+
+                                                                <br>
+                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Freight">
+                                                                <label for="Freight"> Freight</label><br>
+                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Handling In">
+                                                                <label for="HandlingIn"> Handling In</label><br>
+                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Handling Out">
+                                                                <label for="HandlingOut"> Handling Out</label><br>
+                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Stripping">
+                                                                <label for="Stripping"> Stripping</label><br>
+                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Stuffing">
+                                                                <label for="Stuffing"> Stuffing</label><br>
+                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Barcoding">
+                                                                <label for="Barcoding"> Barcoding</label><br>
+                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Repacking">
+                                                                <label for="Repacking"> Repacking</label><br>
+                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Reprocessing">
+                                                                <label for="Reprocessing"> Reprocessing</label><br>
+                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Stickering">
+                                                                <label for="Stickering"> Stickering</label><br>
+                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Sorting">
+                                                                <label for="Sorting"> Sorting</label><br>
+
+
+                                                                <input type="hidden" class="form-check-input" id="typeservicesData" name="typeservicesData" value="<%= user.typeservices %>">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-3 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label for="invoice_no">Type of Vehicle  <span
+                                                                        class="text-red">*</span></label>
+                                                                <select class="form-control" name="typevehicle"
+                                                                    id="typevehicle" >
+                                                                    <option value="4WH" <%=user.typevehicle=="4WH"
+                                                                    ? "selected" : "" %>>4 WHEELER</option>
+                                                                    <option value="6WH" <%=user.typevehicle=="6WH"
+                                                                    ? "selected" : "" %>>6 WHEELER</option>
+                                                                    <option value="FWD" <%=user.typevehicle=="FWD"
+                                                                    ? "selected" : "" %>>FORWARD</option>
+                                                                    <option value="10WH" <%=user.typevehicle=="10WH"
+                                                                    ? "selected" : "" %>>10 WHEELER</option>
+                                                                    <option value="10FT" <%=user.typevehicle=="10FT"
+                                                                    ? "selected" : "" %>>10 FOOTER</option>
+                                                                    <option value="20FT" <%=user.typevehicle=="20FT"
+                                                                    ? "selected" : "" %>>20 FOOTER</option>
+                                                                    <option value="40FT" <%=user.typevehicle=="40FT"
+                                                                    ? "selected" : "" %>>40 FOOTER</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-xl-3 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Destination</label>
+                                                                <input type="text" class="form-control" name="destination" id="destination" value="<%= user.destination %>">
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-xl-3 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Pick Up/Delivery Date</label>
+                                                                <input type="date" class="form-control" name="deliverydate" id="deliverydate" value="<%= user.deliverydate %>">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-3 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Name of trucker/Driver</label>
+                                                                <input type="text" class="form-control" name="driver" id="driver" value="<%= user.driver %>">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-3 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Plate Number</label>
+                                                                <input type="text" class="form-control" name="plate" id="plate" value="<%= user.plate %>">
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-xl-3 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Van/Seal Number</label>
+                                                                <input type="text" class="form-control" name="van" id="can" value="<%= user.van %>">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-3 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">D.R. / S.I Number</label>
+                                                                <input type="text" class="form-control" name="DRSI" id="DRSI" value="<%= user.DRSI %>">
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-xl-3 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">TIME START UNLOADING</label>
+                                                                <input type="time" class="form-control" name="TSU" id="TSU" value="<%= user.TSU %>">
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-xl-3 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">TIME FINISH UNLOADING</label>
+                                                                <input type="time" class="form-control" name="TFU" id="TFU" value="<%= user.TFU %>">
+                                                            </div>
+                                                        </div>
+
+
+
+
+
+                                                    </div>
+                                                    
+                                                    <div class="row mb-3">
+                                                        <div class="col-xl-4 col-sm-6">
+                                                                    <select class="form-control" id="choice-dropdown" onchange="showTextbox()">
+                                                                        <!-- <option value="">Select an option</option> -->
+                                                                        <option value="Primary">Please Scan the Barcode...</option>
+                                                                        <!-- <option value="Secondary">Secondary</option> -->
+                                                                    </select>
+                                                                </div> 
+                                                        
+                                                       <div class="col-xl-12" id="primary-textbox" style="display: none;">
+                                                                <div class="form-group">
+                                                                    <label for="invoice_no">Barcode  <span
+                                                                            class="text-red">*</span></label>
+                                                                    <input type="text" name="product_code" class="form-control" id="product_code">
+                                                                </div>
+                                                             </div>
+                                                             
+                                                             
+                                                              <div class="col-xl-12" id="secondary-textbox" style="display: none;">
+                                                                <div class="form-group">
+                                                                    <label for="invoice_no2">Secondary Barcode  <span
+                                                                            class="text-red">*</span></label>
+                                                                    <input type="text" name="product_code2" class="form-control" id="product_code2">
+                                                                </div>
+                                                              </div> 
+                                                        
+                                                    </div>
+                                                            
+                                              
+                                                             <div class="col-xl-12" id="primary-textbox" style="display: none;">
+                                                                <div class="form-group">
+                                                                    <label for="invoice_no">Barcode </label>
+                                                                    <input type="text" name="product_code" class="form-control" id="product_code">
+                                                                </div>
+                                                             </div>
+                                                             
+                                                             
+                                                              <div class="col-xl-12" id="secondary-textbox" style="display: none;">
+                                                                <div class="form-group">
+                                                                    <label for="invoice_no2">Secondary Barcode  <span
+                                                                            class="text-red">*</span></label>
+                                                                    <input type="text" name="product_code2" class="form-control" id="product_code2">
+                                                                </div>
+                                                              </div>
+                                                        
+                                                    
+                                                              <fieldset>
+                                                                <legend>Expiration Color Legend</legend>
+        
+                                                                <div class="color-legend">
+                                                                    <div class="color-box" style="background-color: red;"></div>
+        
+                                                                    <span>The product has expired.</span>
+        
+                                                                </div>
+                                                                <div class="color-legend">
+                                                                    <div class="color-box" style="background-color: grey;"></div>
+                                                                    <span>1 month before expiration</span>
+                                                                </div>
+                                                                <div class="color-legend">
+                                                                    <div class="color-box" style="background-color: yellow;"></div>
+                                                                    <span>2 to 4 months before expiration</span>
+                                                                </div>
+                                                                <div class="color-legend">
+                                                                    <div class="color-box" style="background-color: green;"></div>
+                                                                    <span>4 months and beyond expiration</span>
+                                                                </div>
+                                                                <!-- Add more color legend items as needed -->
+                                                            </fieldset>
+
+                                                    <div class="col-xl-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table primary-table-bordered" id="myTable">
+                                                                <thead class="thead-primary">
+                                                                    <tr>
+                                                                        <th scope="col">Item Code </th>
+                                                                        <th scope="col">Item Description </th>
+                                                                        <th scope="col">Primary Barcode </th>
+                                                                        <th scope="col">Batch Code</th>
+                                                                        <th scope="col">Production date </th>
+                                                                        <th scope="col">Expiry date </th>
+                                                                        <th scope="col"><%= language.in_stock %> </th>
+                                                                        <th scope="col"><%= language.quantity %> <span class="text-red">*</span></th>
+                                                                        <th scope="col">Unit of Measure </th>
+                                                                        <th scope="col">Conversion</th>
+                                                                        <th scope="col">Room </th>
+                                                                        <th scope="col">Level </th>
+                                                                        <th scope="col">Location </th>
+                                                                        <th scope="col">Action </th>
+                                                                        
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="tblPage_NewOut">
+                                                                    <% user.sale_product.forEach((user)=> { %>
+                                                                        
+                                                                        <tr> 
+                                                                        
+                                                                            <td class="align-top">
+                                                                                <input type="text" name="prod_code" id="prod_code" class="form-control prod_code" style="width: 150px;" value="<%= user.product_code %>" readonly>
+                                                                            </td>
+
+
+                                                                            <td class="align-top">
+                                                                                <input type="text" name="product_name" id="product_name" class="form-control product_name" style="width: 400px;" value="<%= user.product_name %>" readonly >
+                                                                            </td>
+                                                                            
+                                                                            <td class="align-top">
+                                                                                <input type="text" name="primary_code" id="primary_code" class="form-control primary_code" style="width: 200px;" value="<%= user.primary_code %>" readonly>
+                                                                            </td>
+                                                                            
+                                                                          
+                                                                            
+                                                                            <td class="align-top">
+                                                                                <input type="text" name="batch_code" id="batch_code" class="form-control batch_code" style="width: 150px;" value="<%= user.batch_code %>" readonly>
+                                                                            </td>
+
+
+                                                                            <td>
+                                                                                <div class="input-group"> 
+                                                                                    <input type="date" name="product_date" class="form-control" style="width: 150px;" id="product_date" value="<%= user.production_date %>"  readonly> 
+                                                                                </div>
+                                                                            </td>
+
+                                                                            <td>
+                                                                                <div class="input-group"> 
+                                                                                    <input type="date" name="expiry_date" class="form-control" style="width: 150px;" id="expiry_date" value="<%= user.expiry_date %>" readonly > 
+                                                                                </div>
+                                                                            </td>
+
+                                                                            
+                                                                            
+
+                                                                            <% product.forEach((stocks) => { %>
+
+                                                                              
+                                                                                    <% if(user.product_name == stocks.name  &&  user.level == stocks.level &&  user.isle == stocks.isle &&  user.pallet == stocks.pallet  && user.expiry_date == stocks.expiry_date && user.batch_code == stocks.batch_code && user.production_date == stocks.production_date && stocks.room == user.room_name) { %>
+                                                                                    
+                                                                                        <td class="align-top">
+                                                                                            <input type="text" name="stock" id="stock" class="form-control stock" style="width: 150px;" value="<%= stocks.product_stock %>" readonly>
+                                                                                        </td>
+
+
+                                                                                        <td class="align-top">
+                                                                                            <input type="text" name="quantity"
+                                                                                            id="quantity" class="form-control edit_product_name" style="width: 150px;" value="<%= user.quantity %>" >
+                                                                                        </td>
+
+
+                                                                                        <td class="align-top">
+                                                                                            <input type="text" name="unitodmeasure" id="unitodmeasure" class="form-control unitodmeasure" style="width: 150px;" value="<%= user.unit %>" readonly>
+                                                                                        </td>
+
+
+                                                                                        <td class="align-top">
+                                                                                            <input type="text" name="test" id="test" class="form-control unitodmeasure" style="width: 150px;" value="" readonly>
+                                                                                        </td>
+            
+
+                                                                                        <td class="align-top">
+                                                                                            <input type="text" name="RoomAssigned" id="RoomAssigned" class="form-control RoomAssigned" style="width: 150px;" value="<%= user.room_name %>" readonly>
+                                                                                        </td>
+
+                                                                                        <td class="align-top">
+                                                                                            <input type="text" name="type" id="type" class="form-control type" style="width: 150px;" value="<%= user.level %>" readonly>
+                                                                                        </td>
+
+                                                                                        <td class="align-top">
+                                                                                            <input type="text" name="level2" id="level2" class="form-control level" style="width: 150px;" value="<%= user.isle+user.pallet %>" readonly>
+                                                                                        </td>
+
+
+                                                                                        <td class="align-top">
+                                                                                            <button type="button" class="btn btn-square btn-dark" id="remove">Remove</button>
+                                                                                        </td>
+
+
+                                                                                        <input type="hidden" name="prod_cat" id="prod_cat" class="form-control prod_cat" style="width: 150px;" value="<%= user.prod_cat %>" readonly>
+                                                                                        <input type="hidden" name="max_per_unit" id="max_per_unit" class="form-control max_per_unit" style="width: 150px;" value="<%= user.maxperunit %>" readonly>
+                                                                                        <input type="hidden" name="primary_unit" id="primary_unit" class="form-control primary_unit" style="width: 150px;" value="<%= user.unit %>" readonly>
+                                                                                        <input type="hidden" name="secondary_unit" id="secondary_unit" class="form-control secondary_unit" style="width: 150px;" value="<%= user.secondary_unit %>" readonly>
+                                                                                        <input type="hidden" name="carton" id="carton" class="form-control carton" style="width: 150px;" value="<%= user.quantity %>" readonly>
+                                                                                        <input type="hidden" name="secondary_code" id="secondary_code" class="form-control secondary_code" style="width: 150px;" value="<%= user.secondary_code %>" readonly>
+                                                                                        <input type="hidden" name="level" id="level" class="form-control level" style="width: 150px;" value="<%= user.isle+user.pallet %>" readonly>
+                                                                                        <input type="hidden" name="CBM" id="CBM" class="form-control CBM" style="width: 150px;" value="<%= user.CBM%>" readonly>
+                                                                                        
+
+                                                                                    <% } %>
+                                                                            <% }) %>
+                                                                        </tr>
+
+                                                                    <% }) %>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                               
+                                                    <div class="row">
+                                                        <div class="col-md-8 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label for="note"><%= language.note %> </label>
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="note" id="note" name="note"
+                                                                    value="<%= user.note %>">
+                                                            </div>
+                                                        </div>
+
+                                                       
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <button class="btn btn-primary" type="submit"
+                                                            id="submit" onclick="test()"><%= language.submit %> </button>
+                                                    </div>
+                                                 </form>
+                                               </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <!--**********************************
+            Content body end
+        ***********************************-->
+
+                    <!--**********************************
+            Footer start
+        ***********************************-->
+                    <%- include('./partials/footer'); -%>
+
+                        <!--**********************************
+            Footer end
+        ***********************************-->
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!-- start Toastr -->
+    <%- include('./partials/toastr'); -%>
+        <!-- End Toastr -->
+
+        <!--**********************************
+        Scripts
+    ***********************************-->
+        <%- include('./partials/script'); -%>
+        
+        <script>
+function ComputeConversion(){
+                var stock = document.getElementsByName("stock");
+                var prod_cat = document.getElementsByName("prod_cat");
+                var maxperunit = document.getElementsByName("max_per_unit");
+                var unitodmeasure = document.getElementsByName("unitodmeasure");
+                var adjust_qty = document.getElementsByName("quantity");
+                var primary_unit = document.getElementsByName("primary_unit");
+                var secondary_unit = document.getElementsByName("secondary_unit");
+                var test = document.getElementsByName("test");
+
+                for(var i=0; i < stock.length; i++ ){
+                    valStocks = stock[i].value;
+                    valprod_cat = prod_cat[i].value;
+                    valmaxperunit = maxperunit[i].value;
+                    valunitodmeasure = unitodmeasure[i].value;
+                    valadjust_qty = adjust_qty[i].value;
+                    valprimary_unit = primary_unit[i].value;
+                    valsecondary_unit = secondary_unit[i].value;
+                    
+
+                    var TotalQtyStocks = 0;
+                    var TotalQtyQty = 0;
+                    var UOM;
+                    var Conversion;
+                    TotalQtyStocks = valStocks;
+                    TotalQtyQty = valadjust_qty;
+                    UOM = valprimary_unit;
+                    Conversion = valadjust_qty*valmaxperunit + " " +  valsecondary_unit;
+                    if(valprod_cat == "S"){
+                        TotalQtyStocks = valStocks*valmaxperunit;
+                        TotalQtyQty = valadjust_qty*valmaxperunit;
+                        UOM = secondary_unit[i].value;
+                        Conversion = valadjust_qty + " " +  valprimary_unit;
+                    }
+                    stock[i].value = TotalQtyStocks;
+                    adjust_qty[i].value = TotalQtyQty;
+                    unitodmeasure[i].value = UOM;
+                    test[i].value = Conversion;
+                    
+                    console.log(maxperunit[i].value)
+                    
+
+
+                }
+                
+            }
+
+            function checkedServices(){
+                var data = document.getElementById("typeservicesData").value
+                var checking = document.getElementsByName("typeservices");
+                var dataSplit = data.split(",");
+
+
+                for (let i = 0; i < checking.length; i++) {
+                    const dataChecked = checking[i];
+
+                    for(let a = 0; a < dataSplit.length; a++){
+                            var dataVal = dataSplit[a];
+                            if(dataChecked.value == dataVal){
+                                checking[i].checked = true;
+                            }
+                    }
+                    
+                }
+            }
+            
+
+            function datahceck(){
+                var checkBox = document.getElementsByName("typeservices");
+                var arrayData = [];
+                for (let index = 0; index < checkBox.length; index++) {
+                    const element = checkBox[index];
+
+                    if(element.checked == true){
+                        arrayData += element.value + ',';
+                    }
+                    
+                }
+
+                if (arrayData.endsWith(',')) {
+                    arrayData = arrayData.substring(0, arrayData.length - 1);
+                }
+
+                document.getElementById("typeservicesData").value = arrayData;
+
+            
+            }
+
+$(function(){
+        var dtToday = new Date();
+        
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if(month < 10)
+            month = '0' + month.toString();
+        if(day < 10)
+            day = '0' + day.toString();
+        
+        var maxDate = year + '-' + month + '-' + day;
+        $('#date').attr('max', maxDate);
+    });
+             function showTextbox() {
+              var dropdown = document.getElementById("choice-dropdown");
+              var selectedChoice = dropdown.value;
+        
+              var primaryTextbox = document.getElementById("primary-textbox");
+              var secondaryTextbox = document.getElementById("secondary-textbox");
+        
+              if (selectedChoice === "Primary") {
+                primaryTextbox.style.display = "block";
+                secondaryTextbox.style.display = "none";
+                document.getElementById("product_code").focus()
+              } else if (selectedChoice === "Secondary") {
+                primaryTextbox.style.display = "none";
+                secondaryTextbox.style.display = "block";
+              } else {
+                primaryTextbox.style.display = "none";
+                secondaryTextbox.style.display = "none";
+              }
+            }
+
+            function ConversionKit(x,c){
+            var unit = document.getElementById("prod_unit"+x).value;
+            var qty = document.getElementById("prod_qty"+x).value;
+            var prod_cat = document.getElementById("prod_cat"+x).value;
+            var prod_othUnit = document.getElementById("primary_unit"+x).value;
+            var prod_othUnit2 = document.getElementById("secondary_unit"+x).value;
+
+            var totalQty = 0;
+            var totalQty1 = 0;
+            var Carton = 0;
+            // console.log(prod_othUnit + " <> " + prod_othUnit2  + " <> " +  prod_cat + " <> " +  qty + " <> " + c)
+
+            if(prod_cat == "S"){
+                totalQty1 = qty/c
+                totalQty = totalQty1 + " " + prod_othUnit
+                Carton =totalQty1;
+            }else if(prod_cat == "P"){
+                totalQty1 = qty*c
+                totalQty = totalQty1 + " " + prod_othUnit2
+                Carton =qty;
+            }
+            document.getElementById("carton"+x).value = Carton;
+
+            // console.log(totalQty1 + " <> " + prod_cat + " <> " + Carton)
+            
+            document.getElementById("Conver"+x).value = totalQty 
+
+        }
+
+            function checkExpiration(expirationDate, x) {
+                const currentDate = new Date();
+                const expirationDate1 = new Date(expirationDate); 
+                const timeDifference = expirationDate1 - currentDate;
+                const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+                if(daysDifference <= 0){
+                    const element = document.getElementById("trtable" + x);
+                    element.style.backgroundColor = "red";
+                }else if (daysDifference <= 30) {
+                    const element = document.getElementById("trtable" + x);
+                    element.style.backgroundColor = "grey";
+                } else if (daysDifference <= 60 || daysDifference <= 120) {
+                    const element = document.getElementById("trtable" + x);
+                    element.style.backgroundColor = "yellow";
+                } else {
+                    const element = document.getElementById("trtable" + x);
+                    element.style.backgroundColor = "green";
+                }
+                return
+            }
+
+
+            function SelectRoom(room) {
+                var variable = document.getElementById("warehouse_name").value;
+                var selectRoom = $('#showRoom');
+
+                $.ajax({
+                    url: '/warehousemap_Income/Rooms_data',
+                    method: 'POST',
+                    data: { warehouse_name: variable },
+                    success: function (response) {
+                        selectRoom.empty();
+
+                        $.each(response, function (index, data) {
+                            var roomName = data.room_name;
+                            var roomCode = data.room_name;
+                                if(room == roomName){
+                                    alert("helllo")
+                                    var checkboxElement = $('<input>')
+                                    .attr('type', 'checkbox')
+                                    .addClass('form-check-input')
+                                    .val(roomName)
+                                    .attr("name", "room_name")
+                                    .attr("id", "room_data"+index)
+                                    .attr('roomcode', roomCode)
+                                    .prop('checked', true);
+                                    selectRoom.append(checkboxElement);
+                                }else{
+                                    var checkboxElement = $('<input>')
+                                    .attr('type', 'checkbox')
+                                    .addClass('form-check-input')
+                                    .val(roomName)
+                                    .attr("name", "room_name")
+                                    .attr("id", "room_data"+index)
+                                    .attr('roomcode', roomCode);
+                                    selectRoom.append(checkboxElement);
+                                }
+
+                            // Create label for the checkbox
+                            var labelElement = $('<h5>').text(roomName).prepend(checkboxElement);
+
+                            // Append the label to the container
+                            selectRoom.append(labelElement);
+
+                            labelElement.click(function () {
+                                checkboxElement.prop('checked', !checkboxElement.prop('checked'));
+                            });
+
+                            checkboxElement.click(function (event) {
+                                event.stopPropagation();
+                            });
+
+                            // BayBin();
+                            checkboxElement.click(function () {
+                                // BayBin(index);
+                            });
+                        });
+                    }
+                });
+            }
+
+            function removeSelfRow(event) {
+              
+                var row = $(event.target).closest('tr');
+                
+                row.remove();
+            }
+
+            $(document).on('click', 'button#remove', function(event) {
+                removeSelfRow(event);
+            });
+            
+                $(document).ready(function() {
+                        $('#product_code').on('keydown', function(e) {
+                        if (e.which === 13) {
+                        e.preventDefault();
+                        return false;
+                        }
+                    });
+                    // AJAX request when the value in the text box changes
+                    var x = 0;
+                    $('#product_code').on('input', function() {
+                        var productCode = $(this).val(); // Get the entered product code
+                        var warehouseName = $('#warehouse_name').val();
+                        var rooms = $('#room').val();
+                        var valCatwars ;
+
+
+                        // AJAX request to fetch data based on the entered product code
+
+                            var rooms_data = document.getElementsByName("room_name");
+                            var RoomAssign = [];
+
+                            for (let index = 0; index < rooms_data.length; index++) {
+                                const element = rooms_data[index];
+
+                                if (element.checked) {
+                                    RoomAssign.push(element.value);
+                                }
+                            }
+
+                            var output = RoomAssign.join(',');
+
+
+                        $.ajax({
+                            url: '/all_sales_finished/barcode_scanner', // Replace with your backend endpoint URL
+                            method: 'POST',
+                            data: { product_code: productCode, warehouse_name: warehouseName, rooms_data: rooms, Roomslist:output }, // Pass the product code as a parameter
+                            success: function(response) {
+                            // Populate the table with the received data
+                            $.each(response, function(index, data1) {
+                                data1.forEach((data) => {
+                                if(data.product_stock > 0){
+                                    var table = document.getElementById("myTable");
+                                    var row1 = table.getElementsByTagName("tr")
+                                    
+                                    
+
+                                    
+                                    // if(){
+                                        
+                                    // }
+
+                                    var Instock = data.product_stock;
+                                    var TotalQty = 0;
+                                    var theUnit ;
+                                    if(data.computeUsed == "P"){
+                                        TotalQty = data.product_stock;
+                                        theUnit = data.unit;
+
+                                    }else if(data.computeUsed == "S"){
+                                        TotalQty = data.product_stock * data.maxPerUnit;
+                                        if(data.product_cat == "P"){
+                                            TotalQty = data.product_stock * data.maxPerUnit ;
+                                        }
+
+                                        theUnit = data.secondary_unit;
+                                    }
+                                    
+                                    
+                                    var row = $('<tr id="trtable'+x+'">');
+                                    
+                                    row.append($('<td>').html('<input type="text" class="form-control" style="width: 150px;" style="width: 150px;" name="prod_code" value="' + data.product_code + '" readonly>'));
+                                    row.append($('<td>').html('<input type="text" class="form-control" style="width: 400px;" name="product_name" id="product_name" value="' + data.name + '" readonly>'));
+                                    row.append($('<td>').html('<input type="text" class="form-control" style="width: 200px;" name="primary_code" value="' + data.primary_code + '" readonly>'));
+                                    row.append($('<td>').html('<input type="text" class="form-control" style="width: 150px;" name="batch_code" value="'+data.batch_code+'" readonly>'));
+                                    row.append($('<td>').html('<input type="date" class="form-control" style="width: 150px;" name="product_date" value="' + data.production_date + '" readonly>'));  
+                                    row.append($('<td>').html('<input type="date" class="form-control" style="width: 150px;" name="expiry_date" value="' + data.expiry_date + '" readonly>'));
+                                    row.append($('<td>').html('<input type="text" class="form-control" style="width: 150px;" name="stock" value="' + TotalQty + '" readonly>'));
+                                    
+                                    row.append($('<td>').html('<input type="text" class="form-control" style="width: 150px;" name="quantity" id="prod_qty'+x+'" onkeyup="ConversionKit('+x+','+data.maxPerUnit+')" value="">'));
+                                    
+                                    row.append($('<td>').html('<input type="text" class="form-control" style="width: 150px;" name="unitodmeasure" value="' + theUnit + '" readonly>'));
+                                    row.append($('<td>').html('<input type="text" class="form-control" style="width: 150px;" name="test" id="Conver'+x+'" value="" readonly>'));
+                                    row.append($('<td>').html('<input type="text" class="form-control" style="width: 150px;" name="RoomAssigned" id="RoomAssigned'+x+'" value="'+data.roomNamed+'" readonly>'));
+                                    row.append($('<td>').html('<input type="text" class="form-control" style="width: 150px;" name="type" level="type' + x + '" id="type' + x + '" style="width: 150px;" value="' + data.level + '" readonly></select>'));
+                                    row.append($('<td>').html('<input type="text" class="form-control" style="width: 150px;" name="level2" id="level2" value="' + data.isle+data.pallet + '" readonly>'));
+                                    row.append($('<td>').html('<button type="button" class="btn btn-square btn-dark" id="remove">Remove</button>'));
+                                    
+
+                                    $('<input>').attr({
+                                        type: 'hidden',
+                                        id: 'level',
+                                        name: 'level',
+                                        value: data.isle+data.pallet
+                                    }).appendTo(row);
+
+
+                                    $('<input>').attr({
+                                        type: 'hidden',
+                                        id: 'CBM',
+                                        name: 'CBM',
+                                        value: data.CBM
+                                    }).appendTo(row);
+
+
+                                    $('<input>').attr({
+                                        type: 'hidden',
+                                        id: 'primary_unit'+x,
+                                        name: 'primary_unit',
+                                        value: data.unit
+                                    }).appendTo(row);
+
+
+                                    $('<input>').attr({
+                                        type: 'hidden',
+                                        id: 'secondary_unit'+x,
+                                        name: 'secondary_unit',
+                                        value: data.secondary_unit
+                                    }).appendTo(row);
+
+                                    $('<input>').attr({
+                                        type: 'hidden',
+                                        id: 'secondary_code',
+                                        name: 'secondary_code',
+                                        value: data.secondary_code
+                                    }).appendTo(row);
+
+                                    $('<input>').attr({
+                                        type: 'hidden',
+                                        id: 'storage',
+                                        name: 'storage',
+                                        value: data.storage
+                                    }).appendTo(row);
+
+                                    $('<input>').attr({
+                                        type: 'hidden',
+                                        id: 'rak',
+                                        name: 'rak',
+                                        value: data.rack
+                                    }).appendTo(row);
+
+
+                                    $('<input>').attr({
+                                        type: 'hidden',
+                                        id: 'max_per_unit',
+                                        name: 'max_per_unit',
+                                        value: data.maxPerUnit
+                                    }).appendTo(row);
+
+
+                                    $('<input>').attr({
+                                        type: 'hidden',
+                                        id: 'prod_unit'+x,
+                                        name: 'prod_unit',
+                                        value: data.unit
+                                    }).appendTo(row);
+
+
+                                    $('<input>').attr({
+                                        type: 'hidden',
+                                        id: 'prod_cat'+x,
+                                        name: 'prod_cat',
+                                        value: data.computeUsed
+                                    }).appendTo(row);
+
+
+                                    $('<input>').attr({
+                                        type: 'hidden',
+                                        id: 'carton'+x,
+                                        name: 'carton',
+                                        value: ""
+                                    }).appendTo(row);
+
+
+                                    $('#tblPage_NewOut').append(row);
+
+
+                                    for (let i = 1; i <= row1.length-1; i++) {
+                                        var row2 = row1[i];
+                                        var inputElement = row2.querySelector("#product_name");
+                                        var level2 = row2.querySelector("#level2");
+                                        var productName = inputElement.value;
+                                        var location = level2.value;
+                                        var datalocation2 = data.isle+data.pallet;
+                                        console.log(data.name + " <w> " +datalocation2+ "<w>" + i)
+
+                                        if(productName == data.name && location == datalocation2){
+                                            // console.log(productName + " <> " +location+ "<>" + i)
+                                        //     row2.remove();
+                                        }
+
+
+                                        
+                                        // console.log(inputElement)
+                                    }
+
+
+                                    
+
+                                    checkExpiration(data.expiry_date , x);
+                                    x++;
+
+                                    
+                                }
+                            })    
+                            });
+                            
+                            // Clear the product code input field
+                            $("#product_code").val('');
+                            },
+                            error: function(xhr, status, error) {
+                                $("#product_code").val('');
+                                Swal.fire(
+                                '',
+                                'We were unable to locate the barcode you entered. Please try scanning another barcode.',
+                                'warning'
+                                )
+                            }
+                        });
+                        
+                    });
+                    });
+
+            
+            
+            </script>
+
+            <!--**********************************
+        Scripts end
+    ***********************************-->
+</body>
+
+</html>
