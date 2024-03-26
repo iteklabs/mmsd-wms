@@ -431,38 +431,12 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-xl-4 col-sm-6">
-                                                            <div class="form-group">
-                                                                <label for="invoice_no"> Supplier / Client Ref Number <span class="text-red">*</span></label>
-                                                                <input type="text" name="SCRN" class="form-control"
-                                                                    id="SCRN" value="">
-                                                            </div>
-                                                        </div>
+                                                        
 
-                                                        <div class="col-xl-3 col-sm-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Requested By</label>
-                                                                <input type="text" class="form-control" name="ReqBy" id="ReqBy">
-                                                            </div>
-                                                        </div>
+                                                        
 
 
-                                                        <div class="col-xl-3 col-sm-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Date of Request</label>
-                                                                <input type="date" class="form-control" name="dateofreq" id="dateofreq">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-xl-3 col-sm-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">PO number</label>
-                                                                <input type="text" class="form-control" name="PO_number" id="PO_number">
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="col-xl-4 col-sm-6">
+                                                        <!-- <div class="col-xl-4 col-sm-6">
                                                             <div class="form-group">
                                                                 <label for="invoice_no"><%= language.customer %>  <span class="text-red">*</span></label>
                                                                 <select class="form-control" name="customer"
@@ -475,7 +449,7 @@
                                                                         <% }) %>
                                                                 </select>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="col-xl-4 col-sm-6">
                                                             <div class="form-group">
                                                                 <label for="invoice_no"><%= language.date %> <span class="text-red">*</span></label>
@@ -499,7 +473,7 @@
                                                                 <div class="form-group">
                                                                     <label for="invoice_no"><%= language.warehouse %> <span class="text-red">*</span></label>
                                                                     <select class="form-control" name="warehouse_name"
-                                                                        id="warehouse_name" onchange="SelectRoom(); BayBin();" required>
+                                                                        id="warehouse_name" onchange="SelectRoom()" required>
                                                                         <option value selected disabled>Select One</option>
                                                                         <% warehouse.forEach((warehouse)=> { %>
                                                                             <option value="<%= warehouse.name %>">
@@ -524,124 +498,7 @@
                                                                 </div>
                                                             </div>
                                                     </div>
-                                                    <div class="row mb-3">
-
-                                                        <div class="col-xl-3 col-sm-6">
-                                                            <div class="form-group">
-                                                                <label for="invoice_no">Type of Services  </label>
-                                                                <!-- <select class="form-control" name="typeservices"
-                                                                    id="typeservices" required>
-                                                                    <option value="F">Freight</option>
-                                                                    <option value="HI">Handling In</option>
-                                                                    <option value="S">Stripping</option>
-                                                                    <option value="PA">Put Away</option>
-                                                                    <option value="OTH">Others</option>
-                                                                </select> -->
-
-                                                                <br><input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Freight">
-                                                                <label for="Freight"> Freight</label><br>
-                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Handling In">
-                                                                <label for="HandlingIn"> Handling In</label><br>
-                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Handling Out">
-                                                                <label for="HandlingOut"> Handling Out</label><br>
-                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Stripping">
-                                                                <label for="Stripping"> Stripping</label><br>
-                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Stuffing">
-                                                                <label for="Stuffing"> Stuffing</label><br>
-                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Barcoding">
-                                                                <label for="Barcoding"> Barcoding</label><br>
-                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Repacking">
-                                                                <label for="Repacking"> Repacking</label><br>
-                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Reprocessing">
-                                                                <label for="Reprocessing"> Reprocessing</label><br>
-                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Stickering">
-                                                                <label for="Stickering"> Stickering</label><br>
-                                                                <input type="checkbox" class="form-check-input" id="typeservices" name="typeservices" onclick="datahceck()" value="Sorting">
-                                                                <label for="Sorting"> Sorting</label><br>
-
-                                                                <input type="hidden" class="form-check-input" id="typeservicesData" name="typeservicesData">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-xl-3 col-sm-6">
-                                                            <div class="form-group">
-                                                                <label for="invoice_no">Type of Vehicle  <span
-                                                                        class="text-red">*</span></label>
-                                                                <select class="form-control" name="typevehicle"
-                                                                    id="typevehicle" required>
-                                                                    <option value="4WH">4 WHEELER</option>
-                                                                    <option value="6WH">6 WHEELER</option>
-                                                                    <option value="FWD">FORWARD</option>
-                                                                    <option value="10WH">10 WHEELER</option>
-                                                                    <option value="10FT">10 FOOTER</option>
-                                                                    <option value="20FT">20 FOOTER</option>
-                                                                    <option value="40FT">40 FOOTER</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="col-xl-3 col-sm-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Destination</label>
-                                                                <input type="text" class="form-control" name="destination" id="destination">
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="col-xl-3 col-sm-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Pick Up/Delivery Date</label>
-                                                                <input type="date" class="form-control" name="deliverydate" id="deliverydate">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-xl-3 col-sm-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Name of trucker/Driver</label>
-                                                                <input type="text" class="form-control" name="driver" id="driver">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-xl-3 col-sm-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Plate Number</label>
-                                                                <input type="text" class="form-control" name="plate" id="plate">
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="col-xl-3 col-sm-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">Van/Seal Number</label>
-                                                                <input type="text" class="form-control" name="van" id="can">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-xl-3 col-sm-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">D.R. / S.I Number</label>
-                                                                <input type="text" class="form-control" name="DRSI" id="DRSI">
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="col-xl-3 col-sm-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">TIME START LOADING</label>
-                                                                <input type="time" class="form-control" name="TSU" id="TSU">
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="col-xl-3 col-sm-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label">TIME FINISH LOADING</label>
-                                                                <input type="time" class="form-control" name="TFU" id="TFU">
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
+                                                   
 
                                                     <div class="row mb-3">
                                                         <div class="col-xl-4 col-sm-6">
@@ -770,25 +627,7 @@
                           </div>
                           <div class="modal-body">
 
-                            <!-- <div>
-                                <span style="color:black;">Document Number: <b><%= invoice %></b></span>
-                            </div>
-                            <div>
-                                <span style="color:black;">Supplier/Client Ref Number: <b id="SRNC"></b></span>
-                            </div>
-
-                            <div>
-                                <span style="color:black;">Customer: <b id="customers"></b></span>
-                            </div>
-                            <div>
-                                <span style="color:black;">Date received: <b id="dateRec"></b></span>
-                            </div>
-                            <div>
-                                <span style="color:black;">Warehouse: <b id="houseware"></b></span>
-                            </div>
-                            <div>
-                                <span style="color:black;">Room: <b id="moor"></b></span>
-                            </div> -->
+                        
 
                         <table style="width:50%" >
                             <thead>
@@ -882,36 +721,7 @@
         $('#date').attr('max', maxDate);
     });
 
-    // function SelectRoom(){
-        
-    //     var varibale = document.getElementById("warehouse_name").value;
-    //     var selectRoom = $('#room');
-
-    //     $.ajax({
-    //         url: '/warehousemap_Income/Rooms_data', 
-    //         method: 'POST',
-    //         data: { warehouse_name: varibale }, 
-    //         success: function(response) {
-
-            
-    //             selectRoom.empty();
-    //                 $.each(response, function(index, data) {
-    //                     var roomName = data.room_name;
-    //                     var roomCode = data.room_name
-    //                     var option = $('<option>').text(roomName).val(roomName).attr('roomcode', roomCode);;
-    //                     selectRoom.append(option);
-
-    //                     BayBin()
-    //                 })
-
-
-                
-    //         }
-    //     })
-
-        
-        
-    // }
+  
 
     function SelectRoom() {
         var variable = document.getElementById("warehouse_name").value;
@@ -1305,9 +1115,7 @@ $(document).ready(function() {
           // Populate the table with the received data
           $.each(response, function(index, data1) {
             data1.forEach((data) => {
-            if(data.product_stock > 0){
 
-                console.log(data.computeUsed)
                 var Instock = data.product_stock;
                 var TotalQty = 0;
                 var theUnit ;
@@ -1447,7 +1255,7 @@ $(document).ready(function() {
                 x++;
 
                 
-            }
+            
          })    
           });
           

@@ -21,17 +21,7 @@ router.get("/view", auth, async (req, res) => {
             // all_data = await sales.find({ warehouse_name : staff_data.warehouse});
 
             all_data = await sales_finished.aggregate([
-                {
-                  $lookup: {
-                    from: "customers",
-                    localField: "customer",
-                    foreignField: "name",
-                    as: "customers_docs"
-                  }
-                },
-                {
-                  $unwind: "$customers_docs"
-                },
+                
                 {
                   $unwind: "$sale_product"
                 },
@@ -2305,7 +2295,7 @@ router.post("/barcode_scanner", async (req, res) => {
                 $unwind: "$product_details"
             },
             {
-                $match: { "product_details.primary_code": product_code }
+                $match: { "product_details.product_code": product_code }
             },
             {
                 $group: {
